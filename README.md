@@ -2,10 +2,37 @@
 Used to print data in columns with headers to stdout.
 
 ## Use example
+
+Sprinkle the calls to DBP_DebugPrint___() throughout your code to output organized data.
+
+The example below shows what the typical output looks like and then shows the code that would generate that output.
+
+### Output
+
+When the code first runs you get this:
+| Loops | Sensor_Reading | 
+| --- | --- |
+|1|42|
+|2|42|
+|3|42|
+|...|...|
+|100|42|
+
+Then when the user presses the button, you get this:
+| Loops | Sensor_Reading | More_Calculations |
+| --- | --- | --- |
+|1|42|4242|
+|2|42|4242|
+|...|...|...|
+|100|42|4242|
+
+
+### Code
 ```c
 #include "debug_print/debug_print.h"
 #include <stdint.h>
-uint16_t foo(uint16_t num)
+
+uint16_t ResultGet(uint16_t num)
 {
     uint16_t result = Calculations(num)
     DBP_DebugPrintInt("Calculations", result, 2);
@@ -38,11 +65,15 @@ void main(void)
             DBP_DataNHeaderSet(0);
             
             loops = 0; // reset
+            while(ButtonIsPressed());
         }
         
         DBP_DebugPrintInt("Loops", loops, 0);
         uint16_t data = SensorReadingGet();
         DBP_DebugPrintInt("Sensor_Reading", data, 0);
+        
+        data = ResultGet(data);
+        DoSomthingWithTheResults(data);
         
         if(100 > loops) // Lets only print 100 lines of data
         {
@@ -59,3 +90,4 @@ void main(void)
     }
 }
 ```
+
