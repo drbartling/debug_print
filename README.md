@@ -10,7 +10,8 @@ The example below shows what the typical output looks like and then shows the co
 ### Output
 
 When the code first runs you get this:
-| Loops | Sensor_Reading | 
+
+| Loops | Sensor_Reading |
 | --- | --- |
 |1|42|
 |2|42|
@@ -19,6 +20,7 @@ When the code first runs you get this:
 |100|42|
 
 Then when the user presses the button, you get this:
+
 | Loops | Sensor_Reading | More_Calculations |
 | --- | --- | --- |
 |1|42|4242|
