@@ -64,7 +64,7 @@ int8_t DBP_verboseness = -1;
 
 // When 1, data will get printed.
 // When 0, header label will get printed.
-bool DBP_dataNHeader = 0;
+DBP_PRINT_MODE_T DBP_printMode = 0;
 
 char DBP_headerPrefix[PREFIX_LENGTH];
 
@@ -92,13 +92,19 @@ void DBP_PrintStrF(const char* header, const char* data, int8_t verboseLevel)
 {
     if (verboseLevel <= DBP_verboseness)
     {
-        if (false == DBP_dataNHeader)
+        switch (DBP_printMode)
         {
+        case DBP_HEADING:
             printf("%s%s ", DBP_headerPrefix, header);
-        }
-        else if (true == DBP_dataNHeader)
-        {
+            break;
+        case DBP_DATA:
             printf("%s ", data);
+            break;
+        case DBP_BOTH:
+            printf("%s%s %s\r\n", DBP_headerPrefix, header, data);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -110,7 +116,13 @@ void DBP_VerboseLevelSet(int8_t verboseLevel)
 
 void DBP_DataNHeaderSet(bool data_nHeader)
 {
-    DBP_dataNHeader = data_nHeader;
+    // Depricated
+    DBP_PrintModeSet((DBP_PRINT_MODE_T) data_nHeader);
+}
+
+void DBP_PrintModeSet(DBP_PRINT_MODE_T printMode)
+{
+    DBP_printMode = printMode;
 }
 
 void DBP_HeaderPrefixSet(const char* newPrefix)

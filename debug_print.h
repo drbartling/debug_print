@@ -33,7 +33,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*******************************************************************************/
+ *******************************************************************************/
 
 /**
  * Abbreviations Used:
@@ -51,9 +51,20 @@ SOFTWARE.
 #include <stdint.h>
 
 //
+// Section: Data Types
+//
+
+typedef enum
+{
+    DBP_HEADING,
+    DBP_DATA,
+    DBP_BOTH
+} DBP_PRINT_MODE_T;
+
+//
 // Section: Template Module APIs
 //
- 
+
 /**
  *
  * @Summary
@@ -90,7 +101,9 @@ void DBP_PrintStrF(const char* header, const char* data, int8_t verboseLevel);
 
 void DBP_VerboseLevelSet(int8_t verboseLevel);
 
-void DBP_DataNHeaderSet(bool data_nHeader);
+// Depricated
+void DBP_DataNHeaderSet(bool data_nHeader); 
+void DBP_PrintModeSet(DBP_PRINT_MODE_T printMode);
 
 #ifdef DBP_DISABLE
 #define DBP_DebugPrintInt(a, b, c) ((void)0)
@@ -108,4 +121,3 @@ void DBP_HeaderPrefixSet(const char* newPrefix);
 //
 // End of File
 //
- 
